@@ -2,141 +2,149 @@
 <%= success %>
 
 <body>
-  <style>
-    #filters {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
+<style>
+ #filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+ }
 
-    .filter {
-      text-align: center;
-      margin-right: 2rem;
-      margin-top: 1rem;
-      opacity: 0.7;
-    }
+ .filter {
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  opacity: 0.7;
+ }
 
-    .filter:hover {
-      opacity: 1;
-      cursor: pointer;
-    }
+ 
+ .filter:hover {
+  opacity: 1;
+  cursor: pointer;
+ }
 
-    .filter p {
-      font-size: 0.8rem;
-    }
+ .filter p {
+  font-size: 0.8rem;
+ }
 
-    .tax-Info {
-      display: none;
-    }
+ .tax-Info {
+  display: none;
+ }
+ .tax-toggle {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.25rem;
+  padding: 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+ }
+</style>
 
-    .tax-toggle {
-      border: 1px solid black;
-      border-radius: 1rem;
-      height: 3.25rem;
-      padding: 1rem;
-      margin-left: 2rem;
-      display: flex;
-      align-items: center;
-    }
-
-    /* Make the filter icons stack vertically and use a toggle for smaller screens */
-    @media (max-width: 768px) {
-      #filters {
-        flex-direction: column;
-      }
-
-      #filters .filter {
-        margin-right: 0;
-        margin-bottom: 1rem;
-      }
-
-      .filter i {
-        font-size: 2rem;
-      }
-
-      .filter p {
-        font-size: 1rem;
-      }
-
-      /* Hide the filter icons by default and show the toggle */
-      #filters .filter {
-        display: none;
-      }
-
-      /* Show the toggle button */
-      .filter-toggle-btn {
-        display: block;
-        margin-top: 1rem;
-      }
-    }
-  </style>
-
-  <div id="filters">
-    <!-- Toggle button for filter icons -->
-    <button class="btn btn-primary filter-toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#filterIcons" aria-expanded="false" aria-controls="filterIcons">
-      Filters
-    </button>
-    
-    <!-- Collapsible filter icons -->
-    <div class="collapse" id="filterIcons">
-      <!-- Filter items as shown earlier -->
-      <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-      </div>
-      <!-- More filter items... -->
-    </div>
-
-    <!-- Tax Toggle -->
-    <div class="tax-toggle">
-      <div class="form-check-reverse form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
-      </div>
+<div id="filters">
+  <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-tree-city"></i></div>
+      <p>Heritage Cities</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p>Beach</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-mountain-sun"></i></div>
+      <p>Mountains</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Pools</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-route"></i></div>
+      <p>Trails</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-republican"></i></div>
+      <p>Safari</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-ship"></i></div>
+    <p>Ship</p>
+</div>
+<div class="filter">
+  <div><i class="fa-solid fa-dumbbell"></i></div>
+  <p>Gym</p>
+</div>
+  <div class = "tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
     </div>
   </div>
+</div>
+
+
+
+ 
 
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(let listing of allListings) { %>
-      <a href="/listings/<%=listing._id%>" class="listing-link">
-        <div class="col mb-4 listing-card"> <!-- Added mb-4 for margin bottom -->
-          <div class="card h-100">
-            <img
-              src="<%= listing.image.url %>"
-              class="card-img-top"
-              alt="listing_image"
-              style="height: 20rem"
-            />
-            <div class="card-img-overlay"></div>
-            <div class="card-body">
-              <h5 class="card-title"><b><%= listing.title %></b></h5>
-              <p class="card-text">
-                &#8377;<b> <%= listing.price.toLocaleString("en-IN") %></b> /night
-                <i class="tax-Info"> &nbsp; &nbsp;+18% GST</i>
-              </p>
-            </div>
-          </div>
+      <a href = "/listings/<%=listing._id%>" class ="listing-link" >
+    <div class="col mb-4 listing-card"> <!-- Added mb-4 for margin bottom -->
+      <div class="card h-100">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top"
+          alt="listing_image"
+          style="height: 20rem"
+        />
+          <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <h5 class="card-title"><b><%= listing.title %></b></h5>
+          <p class="card-text">
+            &#8377;<b> <%= listing.price.toLocaleString("en-IN") %></b> /night
+            <i class = "tax-Info"> &nbsp; &nbsp;+18% GST</i>
+          </p>
         </div>
-      </a>
+      </div>
+    </div>
     <% } %>
+  </a>
   </div>
-
-  <!-- Add Bootstrap JS for collapse functionality -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
+  
   <script>
     let taxSwitch = document.getElementById("flexSwitchCheckDefault");
     taxSwitch.addEventListener("click", () => {
-      let taxInfo = document.getElementsByClassName("tax-Info");
-      for(info of taxInfo) {
-        if(info.style.display != "inline") {
-          info.style.display = "inline";
-        } else {
-          info.style.display = "none";
-        }
+    let taxInfo = document.getElementsByClassName("tax-Info");
+    for(info of taxInfo) {
+      if(info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
       }
+     
+    }
     });
   </script>
+
+
 </body>
+
